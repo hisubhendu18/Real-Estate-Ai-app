@@ -42,7 +42,7 @@ st.markdown("""
         display: block;
     }
     
-    /* টাইটেল হোভার এফেক্ট: মাউস আনলে মৃদু বড় হবে এবং কালার শিফট হবে */
+    /* টাইটেল হোভার এফেক্ট */
     .title-text:hover {
         transform: scale(1.03);
         background: linear-gradient(135deg, #2563eb, #1d4ed8);
@@ -102,7 +102,7 @@ ui_strings = {
         "subtitle": "এআই প্রযুক্তির মাধ্যমে মাত্র ৫ সেকেন্ডে প্রফেশনাল রিয়েল এস্টেট বিজ্ঞাপন তৈরি করুন।",
         "sidebar_ui_lang": "🌐 ওয়েবসাইটের ভাষা (UI Language):",
         "sidebar_out_lang": "📝 বিজ্ঞাপনের আউটপুট ভাষা (AI Output Language):",
-        "sidebar_title": "⚙️ প্রপার্টি康নফিগুরেশন",
+        "sidebar_title": "⚙️ প্রপার্টি কনফিগারেশন",
         "prop_type": "🏢 প্রপার্টির ধরণ:",
         "input_title": "📝 প্রপার্টির বিবরণ দিন",
         "loc_label": "📍 লোকেশন (যেমন: Salt Lake Sector 5, Kolkata):",
@@ -213,7 +213,8 @@ with col2:
         else:
             with st.spinner("✨ PropAI Magic Generating..."):
                 try:
-                    # গুগলের অফিশিয়াল লেলেস্ট ৩.৬ ফ্ল্যাশ মডেল ডিফাইন করা হলো
                     model = genai.GenerativeModel("gemini-3.6-flash")
                     prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
-            
+                    response = model.generate_content(prompt_query)
+                    st.markdown(response.text)
+                    st.write("---")
