@@ -95,7 +95,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 🌐 গ্লোবাল ল্যাঙ্গুয়েজ ডিকশনারি (UI Localization)
+# ৩. 🌐 গ্লোবাল ল্যাঙ্গুয়েজ ডিকশনারি (UI Localization)
 ui_strings = {
     "Bengali (বাংলা)": {
         "title": "🏠 PropAI Premium: Real Estate Content Generator",
@@ -133,7 +133,7 @@ ui_strings = {
     },
     "Spanish (Español)": {
         "title": "🏠 PropAI Premium: Real Estate Content Generator",
-        "subtitle": "Cree anuncios inmobiliarios profesionales en solo 5 segundos con IA.",
+        "subtitle": "Cree anuncios inmobiliarios professionnels en solo 5 segundos con IA.",
         "sidebar_ui_lang": "🌐 Idioma del Sitio Web (Idioma de la IU):",
         "sidebar_out_lang": "📝 Idioma de Salida del Anuncio (Idioma de IA):",
         "sidebar_title": "⚙️ Configuración de la Propiedad",
@@ -211,48 +211,9 @@ with col2:
         if not location or not amenities:
             st.warning(ui['warning_text'])
         else:
-           with st.spinner("✨ PropAI Magic Generating..."):
+            with st.spinner("✨ PropAI Magic Generating..."):
                 try:
-                    # লক্ষ্য করো: try এর নিচের এই ৬টি লাইনের বামদিকের ৪টি স্পেস (১টি Tab) বাড়িয়ে দেওয়া হয়েছে
                     model = genai.GenerativeModel("gemini-3.6-flash")
                     prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
                     response = model.generate_content(prompt_query)
-                    # ১. এআই জেনারেটেড টেক্সট স্ক্রিনে দেখানো
-                    st.markdown(response.text)
-                    st.write("---")
                     
-                    # ২. রিয়েল এস্টেট এজেন্টদের জন্য সুন্দর টেক্সট এরিয়া বক্স
-                    text_to_copy = response.text
-                    st.text_area("📋 Instant Copy Area:", value=text_to_copy, height=150, key="copy_box")
-                    
-                    # ৩. আল্ট্রা-প্রফেশনাল এক-ক্লিকে কপি করার বোতাম (JavaScript Button)
-                    # এটি কাস্টম কীবোর্ড ক্লিপবোর্ডে এক সেকেন্ডে ডেটা কপি করে দেবে
-                    escaped_text = text_to_copy.replace("`", "\\`").replace("'", "\\'")
-                    copy_button_html = f"""
-                    <script>
-                    function copyToClipboard() {{
-                        const text = `{escaped_text}`;
-                        navigator.clipboard.writeText(text).then(function() {{
-                            alert("✅ Copped successfully! / বিজ্ঞাপনটি সফলভাবে কপি হয়েছে।");
-                        }}, function(err) {{
-                            console.error('Could not copy text: ', err);
-                        }});
-                    }}
-                    </script>
-                    <button onclick="copyToClipboard()" style="
-                        background: linear-gradient(135deg, #10b981, #059669);
-                        color: white;
-                        border: none;
-                        padding: 10px 20px;
-                        font-weight: bold;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        width: 100%;
-                        font-size: 15px;
-                        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
-                        transition: all 0.2s ease;
-                    ">📋 এক-ক্লিকে কপি করুন (Click to Copy)</button>
-                    """
-                    st.components.v1.html(copy_button_html, height=50)
-                    
-                except Exception as e:
