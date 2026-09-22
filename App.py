@@ -216,3 +216,4 @@ with col2:
                     # গুগলের অফিশিয়াল লেলেস্ট ৩.৬ ফ্ল্যাশ মডেল ডিফাইন করা হলো
                     model = genai.GenerativeModel("gemini-3.6-flash")
                     prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
+            
