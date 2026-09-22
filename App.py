@@ -95,7 +95,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ৩. 🌐 গ্লোবাল ল্যাঙ্গুয়েজ ডিকশনারি (UI Localization)
+# 🌐 গ্লোবাল ল্যাঙ্গুয়েজ ডিকশনারি (UI Localization)
 ui_strings = {
     "Bengali (বাংলা)": {
         "title": "🏠 PropAI Premium: Real Estate Content Generator",
@@ -213,8 +213,8 @@ with col2:
         else:
             with st.spinner("✨ PropAI Magic Generating..."):
                 try:
+                    # গুগলের অফিশিয়াল লেটেস্ট ৩.৬ ফ্ল্যাশ মডেল ডিফাইন করা হলো
                     model = genai.GenerativeModel("gemini-3.6-flash")
                     prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
+                    
                     response = model.generate_content(prompt_query)
-                    st.markdown(response.text)
-                    st.write("---")
