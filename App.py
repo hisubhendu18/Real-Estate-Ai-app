@@ -48,7 +48,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True) # <-- এখানে ঠিক করা হয়েছে
 
-# ৩. 🔍 এখানে এবং নিচের সব জায়গায় unsafe_allow_html ঠিক করা হলো
+
 st.markdown("<h1 class='title-text'>🏠 PropAI: Real Estate Content Generator</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #666;'>এআই প্রযুক্তির মাধ্যমে মাত্র ৫ সেকেন্ডে প্রফেশনাল রিয়েল এস্টেট বিজ্ঞাপন তৈরি করুন।</p>", unsafe_allow_html=True)
 st.write("---")
@@ -61,7 +61,14 @@ property_type = st.sidebar.selectbox(
     ["1 BHK Flat", "2 BHK Apartment", "3 BHK Luxury Flat", "4 BHK Penthouse", "Duplex House", "Commercial Office/Shop", "Plot/Land"]
 )
 
-language = st.sidebar.radio("🌐 বিজ্ঞাপনের ভাষা:", ["বাংলা (Bengali)", "English", "Mix (Banglish/Hinglish)"])
+# পৃথিবীর প্রধান প্রধান ভাষাগুলোর একটি সুন্দর ড্রপডাউন লিস্ট
+languages_list = [
+    "Bengali (বাংলা)", "English", "Hindi (हिन्दी)", "Spanish (Español)", 
+    "French (Français)", "Arabic (العربية)", "German (Deutsch)", 
+    "Portuguese (Português)", "Japanese (日本語)", "Mix (Banglish/Hinglish)"
+]
+
+language = st.sidebar.selectbox("🌐 বিজ্ঞাপনের ভাষা (Select Language):", languages_list)
 
 # মূল স্ক্রিন - ডাবল কলাম লেআউট
 col1, col2 = st.columns([1, 1.2])
