@@ -10,7 +10,7 @@ else:
 if API_KEY != "YOUR_GEMINI_API_KEY_HERE" and API_KEY != "":
     genai.configure(api_key=API_KEY)
 
-# ২. পেজ কনফিগারেশন ও কাস্টম সিএসএস (Ultra-Professional UI Styling)
+# ২. পেজ充নফিগারেশন ও কাস্টম সিএসএস (Ultra-Professional UI Styling)
 st.set_page_config(page_title="PropAI Premium - Real Estate Content Generator", page_icon="🏠", layout="wide")
 
 # ইন্টারন্যাশনাল লাক্সারি কর্পোরেট থিম (Deep Navy, Slate Blue and Premium Shadows)
@@ -199,7 +199,8 @@ with col2:
         else:
             with st.spinner("✨ PropAI Magic Generating..."):
                 try:
-                    model = genai.GenerativeModel("gemini-1.5-flash")
+                    # এখানে গুগলের একদম আপডেটেড এবং ফ্রি ২.৫ ফ্ল্যাশ মডেলটি ডিফাইন করা হলো
+                    model = genai.GenerativeModel("gemini-2.5-flash")
                     prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
                     
                     response = model.generate_content(prompt_query)
