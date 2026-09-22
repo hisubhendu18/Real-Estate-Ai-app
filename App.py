@@ -1,8 +1,11 @@
 import streamlit as st
 import google.generativeai as genai
 
-# ১. গুগল জেমিনি এপিআই কনফিগারেশন
-API_KEY = "AQ.Ab8RN6JPZgdTGrhu8yrpXO0aQw_GbXw2Tz_YGjXnGaehlkcIgg"  # এখানে আপনার আসল এপিআই কি (AIzaSy...) বসান
+
+if "GEMINI_API_KEY" in st.secrets:
+    API_KEY = st.secrets["GEMINI_API_KEY"]
+else:
+    API_KEY = "YOUR_GEMINI_API_KEY_HERE" 
 
 if API_KEY != "YOUR_GEMINI_API_KEY_HERE":
     genai.configure(api_key=API_KEY)
