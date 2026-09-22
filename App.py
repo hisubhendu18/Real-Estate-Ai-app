@@ -223,4 +223,4 @@ with col2:
             st.warning(ui['warning_text'])
         else:
             with st.spinner("✨ PropAI Magic Generating..."):
-                try:
+                try:    
