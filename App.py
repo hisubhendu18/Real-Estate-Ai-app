@@ -214,17 +214,51 @@ with col2:
             with st.spinner("✨ PropAI Magic Generating..."):
                 try:
                     model = genai.GenerativeModel("gemini-3.6-flash")
-                    prompt_query = f"Act as a professional real estate copywriter..."
+                    prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
                     response = model.generate_content(prompt_query)
                     
-                    # এআই জেনারেটেড টেক্সট আউটপুট দেখানো
+                    # ১. এআই কন্টেন্ট দেখানো
                     st.markdown(response.text)
                     st.write("---")
                     
-                    # টেক্সট এরিয়া বক্স এবং আল্ট্রা-প্রফেশনাল এক-ক্লিকে কপি বোতাম
+                    # ২. টেক্সট এরিয়া বক্স
                     text_to_copy = response.text
                     st.text_area("📋 Instant Copy Area:", value=text_to_copy, height=150, key="copy_box")
                     
+                    # ৩. আল্ট্রা-প্রফেশনাল কপি বোতাম (JavaScript)
                     escaped_text = text_to_copy.replace("`", "\\`").replace("'", "\\'")
-                    copy_button_html = f"""
                     
+                    # লক্ষ্য করো: এখানে {{ }} ডবল ব্র্যাকেট দিয়ে পাইথনের জাভাস্ক্রিপ্ট বাগ দূর করা হয়েছে
+                    copy_button_html = f"""
+                    <script>
+                    function copyToClipboard() {{
+                        const text = `{escaped_text}`;
+                        navigator.clipboard.writeText(text).then(function() {{
+                            alert("✅ Copied successfully! / বিজ্ঞাপনটি সফলভাবে কপি হয়েছে।");
+                        }}, function(err) {{
+                            console.error('Could not copy text: ', err);
+                        }});
+                    }}
+                    </script>
+                    <button onclick="copyToClipboard()" style="
+                        background: linear-gradient(135deg, #10b981, #059669);
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        font-weight: bold;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        width: 100%;
+                        font-size: 15px;
+                        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+                        transition: all 0.2s ease;
+                    ">📋 এক-ক্লিকে কপি করুন (Click to Copy)</button>
+                    """
+                    st.components.v1.html(copy_button_html, height=50)
+                    
+                except Exception as e:
+                    st.error(f"Error logic failed: {e}")
+    else:
+        st.info(ui['info_text'])
+        
+    st.markdown("</div>", unsafe_allow_html=True)
