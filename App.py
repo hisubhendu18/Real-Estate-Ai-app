@@ -204,6 +204,7 @@ property_type = st.sidebar.selectbox(
     ["1 BHK Flat", "2 BHK Apartment", "3 BHK Luxury Flat", "4 BHK Penthouse", "Duplex House", "Commercial Office/Shop", "Plot/Land"]
 )
 
+# মূল স্ক্রিন লেআউট (প্রিমিয়াম ডাবল কলাম লেআউট)
 col1, col2 = st.columns([1, 1.25])
 
 with col1:
@@ -223,3 +224,4 @@ with col2:
         else:
             with st.spinner("✨ PropAI Magic Generating..."):
                 try:
+                    # ইন্ডেন্টেশন একদম নিখুঁতভাবে ৪টি স্পেস দিয়ে সাজানো হয়েছে
