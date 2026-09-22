@@ -224,4 +224,3 @@ with col2:
         else:
             with st.spinner("✨ PropAI Magic Generating..."):
                 try:
-                    # ইন্ডেন্টেশন একদম নিখুঁতভাবে ৪টি স্পেস দিয়ে সাজানো হয়েছে
