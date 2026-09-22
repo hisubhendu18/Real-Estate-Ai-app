@@ -214,6 +214,17 @@ with col2:
             with st.spinner("✨ PropAI Magic Generating..."):
                 try:
                     model = genai.GenerativeModel("gemini-3.6-flash")
-                    prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
+                    prompt_query = f"Act as a professional real estate copywriter..."
                     response = model.generate_content(prompt_query)
+                    
+                    # এআই জেনারেটেড টেক্সট আউটপুট দেখানো
+                    st.markdown(response.text)
+                    st.write("---")
+                    
+                    # টেক্সট এরিয়া বক্স এবং আল্ট্রা-প্রফেশনাল এক-ক্লিকে কপি বোতাম
+                    text_to_copy = response.text
+                    st.text_area("📋 Instant Copy Area:", value=text_to_copy, height=150, key="copy_box")
+                    
+                    escaped_text = text_to_copy.replace("`", "\\`").replace("'", "\\'")
+                    copy_button_html = f"""
                     
