@@ -11,7 +11,7 @@ if API_KEY != "YOUR_GEMINI_API_KEY_HERE" and API_KEY != "":
     genai.configure(api_key=API_KEY)
 
 # ২. পেজ কনফিগারেশন ও কাস্টম সিএসএস (Ultra-Professional UI Styling)
-st.set_page_config(page_title="PropAI Premium - Real Estate SaaS", page_icon="🏠", layout="wide")
+st.set_page_config(page_title="PropAI Premium - Real Estate Content Generator", page_icon="🏠", layout="wide")
 
 # ইন্টারন্যাশনাল লাক্সারি কর্পোরেট থিম (Deep Navy, Slate Blue and Premium Shadows)
 st.markdown("""
@@ -81,10 +81,10 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ৩. 🌐 গলোবাল ল্যাঙ্গুয়েজ ডিকশনারি (UI Localization)
+# ৩. 🌐 গ্লোবাল ল্যাঙ্গুয়েজ ডিকশনারি (UI Localization)
 ui_strings = {
     "Bengali (বাংলা)": {
-        "title": "🏠 PropAI Premium",
+        "title": "🏠 PropAI Premium: Real Estate Content Generator",
         "subtitle": "এআই প্রযুক্তির মাধ্যমে মাত্র ৫ সেকেন্ডে প্রফেশনাল রিয়েল এস্টেট বিজ্ঞাপন তৈরি করুন।",
         "sidebar_ui_lang": "🌐 ওয়েবসাইটের ভাষা (UI Language):",
         "sidebar_out_lang": "📝 বিজ্ঞাপনের আউটপুট ভাষা (AI Output Language):",
@@ -101,7 +101,7 @@ ui_strings = {
         "warning_text": "⚠️ দয়া করে লোকেশন এবং সুবিধাসমূহের ঘর দুটি পূরণ করুন।"
     },
     "English": {
-        "title": "🏠 PropAI Premium",
+        "title": "🏠 PropAI Premium: Real Estate Content Generator",
         "subtitle": "Create professional real estate ads in just 5 seconds using AI technology.",
         "sidebar_ui_lang": "🌐 Website Language (UI Language):",
         "sidebar_out_lang": "📝 Ad Output Language (AI Output Language):",
@@ -118,7 +118,7 @@ ui_strings = {
         "warning_text": "⚠️ Please fill in both Location and Amenities fields."
     },
     "Spanish (Español)": {
-        "title": "🏠 PropAI Premium",
+        "title": "🏠 PropAI Premium: Real Estate Content Generator",
         "subtitle": "Cree anuncios inmobiliarios profesionales en solo 5 segundos con IA.",
         "sidebar_ui_lang": "🌐 Idioma del Sitio Web (Idioma de la IU):",
         "sidebar_out_lang": "📝 Idioma de Salida del Anuncio (Idioma de IA):",
@@ -135,7 +135,7 @@ ui_strings = {
         "warning_text": "⚠️ Por favor complete los campos de Ubicación y Amenidades."
     },
     "French (Français)": {
-        "title": "🏠 PropAI Premium",
+        "title": "🏠 PropAI Premium: Real Estate Content Generator",
         "subtitle": "Créez des annonces immobilières professionnelles en seulement 5 secondes grâce a l'IA.",
         "sidebar_ui_lang": "🌐 Langue du Site Web (Langue de l'IU):",
         "sidebar_out_lang": "📝 Langue de Sortie de l'Annonce (Langue de l'IA):",
@@ -199,7 +199,6 @@ with col2:
         else:
             with st.spinner("✨ PropAI Magic Generating..."):
                 try:
-                    # গুগলের ১.৫ ফ্ল্যাশ স্ট্যাবল মডেল এপিআই মেথড আপডেট করা হলো
                     model = genai.GenerativeModel("gemini-1.5-flash")
                     prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
                     
