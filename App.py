@@ -217,8 +217,42 @@ with col2:
                     model = genai.GenerativeModel("gemini-3.6-flash")
                     prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
                     response = model.generate_content(prompt_query)
+                    # ১. এআই জেনারেটেড টেক্সট স্ক্রিনে দেখানো
                     st.markdown(response.text)
                     st.write("---")
-                    st.text_area("📋 Instant Copy:", value=response.text, height=150)
+                    
+                    # ২. রিয়েল এস্টেট এজেন্টদের জন্য সুন্দর টেক্সট এরিয়া বক্স
+                    text_to_copy = response.text
+                    st.text_area("📋 Instant Copy Area:", value=text_to_copy, height=150, key="copy_box")
+                    
+                    # ৩. আল্ট্রা-প্রফেশনাল এক-ক্লিকে কপি করার বোতাম (JavaScript Button)
+                    # এটি কাস্টম কীবোর্ড ক্লিপবোর্ডে এক সেকেন্ডে ডেটা কপি করে দেবে
+                    escaped_text = text_to_copy.replace("`", "\\`").replace("'", "\\'")
+                    copy_button_html = f"""
+                    <script>
+                    function copyToClipboard() {{
+                        const text = `{escaped_text}`;
+                        navigator.clipboard.writeText(text).then(function() {{
+                            alert("✅ Copped successfully! / বিজ্ঞাপনটি সফলভাবে কপি হয়েছে।");
+                        }}, function(err) {{
+                            console.error('Could not copy text: ', err);
+                        }});
+                    }}
+                    </script>
+                    <button onclick="copyToClipboard()" style="
+                        background: linear-gradient(135deg, #10b981, #059669);
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        font-weight: bold;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        width: 100%;
+                        font-size: 15px;
+                        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+                        transition: all 0.2s ease;
+                    ">📋 এক-ক্লিকে কপি করুন (Click to Copy)</button>
+                    """
+                    st.components.v1.html(copy_button_html, height=50)
+                    
                 except Exception as e:
-                    st.error(f"Error logic failed: {e}")
