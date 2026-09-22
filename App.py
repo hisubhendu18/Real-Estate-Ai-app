@@ -211,10 +211,14 @@ with col2:
         if not location or not amenities:
             st.warning(ui['warning_text'])
         else:
-            with st.spinner("✨ PropAI Magic Generating..."):
+           with st.spinner("✨ PropAI Magic Generating..."):
                 try:
-                    # গুগলের অফিশিয়াল লেটেস্ট ৩.৬ ফ্ল্যাশ মডেল ডিফাইন করা হলো
+                    # লক্ষ্য করো: try এর নিচের এই ৬টি লাইনের বামদিকের ৪টি স্পেস (১টি Tab) বাড়িয়ে দেওয়া হয়েছে
                     model = genai.GenerativeModel("gemini-3.6-flash")
                     prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
-                    
                     response = model.generate_content(prompt_query)
+                    st.markdown(response.text)
+                    st.write("---")
+                    st.text_area("📋 Instant Copy:", value=response.text, height=150)
+                except Exception as e:
+                    st.error(f"Error logic failed: {e}")
