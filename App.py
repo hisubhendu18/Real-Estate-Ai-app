@@ -16,12 +16,9 @@ st.set_page_config(page_title="PropAI Premium - Real Estate SaaS", page_icon="�
 # ইন্টারন্যাশনাল লাক্সারি কর্পোরেট থিম (Deep Navy, Slate Blue and Premium Shadows)
 st.markdown("""
     <style>
-    /* মেইন ব্যাকগ্রাউন্ড */
     .stApp {
         background-color: #f4f6f9;
     }
-    
-    /* সাইডবার কাস্টমাইজেশন */
     [data-testid="stSidebar"] {
         background-color: #0f172a !important;
         color: #f8fafc !important;
@@ -29,8 +26,6 @@ st.markdown("""
     [data-testid="stSidebar"] p, [data-testid="stSidebar"] h3, [data-testid="stSidebar"] label {
         color: #f8fafc !important;
     }
-    
-    /* গ্লোবাল ফন্ট এবং হেডার স্টাইল */
     .title-text {
         background: linear-gradient(135deg, #1e3a8a, #3b82f6);
         -webkit-background-clip: text;
@@ -47,8 +42,6 @@ st.markdown("""
         font-size: 16px;
         margin-bottom: 30px;
     }
-    
-    /* প্রিমিয়াম ইনপুট ও আউটপুট কার্ড বক্স */
     .card-box {
         background-color: #ffffff;
         padding: 30px;
@@ -56,13 +49,7 @@ st.markdown("""
         box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
         margin-bottom: 25px;
         border: 1px solid #e2e8f0;
-        transition: all 0.3s ease;
     }
-    .card-box:hover {
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        transform: translateY(-2px);
-    }
-    
     .card-header-in {
         color: #0f172a;
         font-weight: 700;
@@ -77,8 +64,6 @@ st.markdown("""
         padding-bottom: 10px;
         margin-bottom: 20px;
     }
-    
-    /* ইন্টারঅ্যাক্টিভ প্রিমিয়াম বাটন */
     .stButton>button {
         background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
         color: white !important;
@@ -89,22 +74,14 @@ st.markdown("""
         font-size: 16px !important;
         width: 100% !important;
         box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3) !important;
-        transition: all 0.2s ease-in-out !important;
     }
     .stButton>button:hover {
         background: linear-gradient(135deg, #2563eb, #1e40af) !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4) !important;
-    }
-    
-    /* কাস্টম ইনপুট ফিল্ড বর্ডার কালার */
-    div[data-baseweb="input"] {
-        border-radius: 8px !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# ৩. 🌐 গ্লোবাল ল্যাঙ্গুয়েজ ডিকশনারি (UI Localization)
+# ৩. 🌐 গলোবাল ল্যাঙ্গুয়েজ ডিকশনারি (UI Localization)
 ui_strings = {
     "Bengali (বাংলা)": {
         "title": "🏠 PropAI Premium",
@@ -179,13 +156,11 @@ ui_strings = {
 # ৪. সাইডবার ল্যাঙ্গুয়েজ কন্ট্রোল (প্রিমিয়াম ডার্ক থিম সাইডবার)
 st.sidebar.markdown("## 🌐 Global Settings")
 
-# ড্রপডাউন ১: পুরো ওয়েবসাইটের ইন্টারফেস ল্যাঙ্গুয়েজ কন্ট্রোল করবে
 selected_ui_lang = st.sidebar.selectbox("Choose Website Language:", list(ui_strings.keys()))
-ui = ui_strings[selected_ui_lang] # ইউজারের সিলেক্ট করা UI টেক্সট লোড
+ui = ui_strings[selected_ui_lang]
 
 st.sidebar.write("---")
 
-# ড্রপডাউন ২: এআই (AI) কোন ভাষায় কন্টেন্ট লিখবে তা কন্ট্রোল করবে
 output_languages = [
     "Bengali (বাংলা)", "English", "Hindi (हिन्दी)", "Spanish (Español)", 
     "French (Français)", "Arabic (العربية)", "German (Deutsch)", 
@@ -224,3 +199,18 @@ with col2:
         else:
             with st.spinner("✨ PropAI Magic Generating..."):
                 try:
+                    # গুগলের ১.৫ ফ্ল্যাশ স্ট্যাবল মডেল এপিআই মেথড আপডেট করা হলো
+                    model = genai.GenerativeModel("gemini-1.5-flash")
+                    prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
+                    
+                    response = model.generate_content(prompt_query)
+                    
+                    st.markdown(response.text)
+                    st.write("---")
+                    st.text_area("📋 Instant Copy:", value=response.text, height=150)
+                except Exception as e:
+                    st.error(f"Error logic failed: {e}")
+    else:
+        st.info(ui['info_text'])
+        
+    st.markdown("</div>", unsafe_allow_html=True)
