@@ -10,10 +10,10 @@ else:
 if API_KEY != "YOUR_GEMINI_API_KEY_HERE" and API_KEY != "":
     genai.configure(api_key=API_KEY)
 
-# ২. পেজ充নফিগারেশন ও কাস্টম সিএসএস (Ultra-Professional UI Styling)
+# ২. পেজ কনফিগারেশন ও কাস্টম সিএসেস (Ultra-Professional UI Styling)
 st.set_page_config(page_title="PropAI Premium - Real Estate Content Generator", page_icon="🏠", layout="wide")
 
-# ইন্টারন্যাশনাল লাক্সারি কর্পোরেট থিম (Deep Navy, Slate Blue and Premium Shadows)
+# ইন্টারন্যাশনাল লাক্সারি কর্পোরেট থিম ও টাইটেল হোভার এফেক্ট
 st.markdown("""
     <style>
     .stApp {
@@ -26,6 +26,8 @@ st.markdown("""
     [data-testid="stSidebar"] p, [data-testid="stSidebar"] h3, [data-testid="stSidebar"] label {
         color: #f8fafc !important;
     }
+    
+    /* টাইটেল স্টাইল ও স্মুথ ট্রানজিশন লজিক */
     .title-text {
         background: linear-gradient(135deg, #1e3a8a, #3b82f6);
         -webkit-background-clip: text;
@@ -35,7 +37,19 @@ st.markdown("""
         font-size: 38px;
         margin-bottom: 5px;
         font-family: 'Inter', sans-serif;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        display: block;
     }
+    
+    /* টাইটেল হোভার এফেক্ট: মাউস আনলে মৃদু বড় হবে এবং কালার শিফট হবে */
+    .title-text:hover {
+        transform: scale(1.03);
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
     .subtitle-text {
         text-align: center;
         color: #64748b;
@@ -169,7 +183,7 @@ output_languages = [
 selected_output_lang = st.sidebar.selectbox(ui['sidebar_out_lang'], output_languages)
 
 # ৫. অ্যাপ্লিকেশনের মূল ইন্টারফেস (ডাইনামিক UI টেক্সট)
-st.markdown(f"<h1 class='title-text'>{ui['title']}</h1>", unsafe_allow_html=True)
+st.markdown(f"<div class='title-text'>{ui['title']}</div>", unsafe_allow_html=True)
 st.markdown(f"<p class='subtitle-text'>{ui['subtitle']}</p>", unsafe_allow_html=True)
 
 st.sidebar.write("---")
@@ -199,18 +213,6 @@ with col2:
         else:
             with st.spinner("✨ PropAI Magic Generating..."):
                 try:
-                    # এখানে গুগলের একদম আপডেটেড এবং ফ্রি ২.৫ ফ্ল্যাশ মডেলটি ডিফাইন করা হলো
-                    model = genai.GenerativeModel("gemini-2.5-flash")
+                    # গুগলের অফিশিয়াল ৩.৬ ফ্ল্যাশ মডেল সেট করা হলো
+                    model = genai.GenerativeModel("gemini-3.6-flash")
                     prompt_query = f"Act as a professional real estate copywriter. Write a highly engaging marketing ad and property description for a {property_type} located at {location} with these premium amenities: {amenities}. Write the entire output in {selected_output_lang} language with clean formatting, beautiful emojis, and trending real estate hashtags."
-                    
-                    response = model.generate_content(prompt_query)
-                    
-                    st.markdown(response.text)
-                    st.write("---")
-                    st.text_area("📋 Instant Copy:", value=response.text, height=150)
-                except Exception as e:
-                    st.error(f"Error logic failed: {e}")
-    else:
-        st.info(ui['info_text'])
-        
-    st.markdown("</div>", unsafe_allow_html=True)
